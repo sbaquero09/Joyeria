@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Joya | Joyería de Lujo</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>Editar Joya</h1>
+    <form method="POST">
+        <input type="text" name="nombre" value="{{ joya.nombre }}" required>
+        <input type="text" name="material" value="{{ joya.material }}" required>
+        <input type="number" name="precio" step="0.01" value="{{ joya.precio }}" required>
+        <input type="number" name="stock" value="{{ joya.stock }}" required>
+        <button type="submit">Guardar Cambios</button>
+    </form>
+    <a class="volver-btn" href="{{ url_for('index') }}">← Volver al catálogo</a>
+</body>
+</html>

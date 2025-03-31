@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joyería de Lujo</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>Inventario de Joyería</h1>
+    <form action="/agregar" method="post">
+        <input type="text" name="nombre" placeholder="Nombre de la joya" required>
+        <input type="text" name="material" placeholder="Material (oro, plata, etc.)" required>
+        <input type="number" name="precio" step="0.01" placeholder="Precio ($)" required>
+        <input type="number" name="stock" placeholder="Cantidad en stock" required>
+        <button type="submit">Agregar Joya</button>
+    </form>
+
+    <form class="buscar-form" action="{{ url_for('buscar') }}" method="get">
+        <input type="text" name="q" placeholder="Buscar joyas por nombre o material...">
+        <button type="submit">Buscar</button>
+    </form>
+    
+    <h2>Catálogo de Joyas</h2>
+    <ul>
+        {% for joya in joyas %}
+            <li>
+                <span class="joya-info">{{ joya.nombre }}</span>
+                <span class="joya-info">{{ joya.material }}</span>
+                <span class="joya-precio">${{ "%.2f"|format(joya.precio) }}</span>
+                <span class="joya-stock">Stock: {{ joya.stock }}</span>
+                <div class="acciones">
+                    <a href="{{ url_for('editar', id=joya.id) }}">Editar</a>
+                    <a href="{{ url_for('eliminar', id=joya.id) }}" onclick="return confirm('¿Estás seguro de eliminar esta joya?')">Eliminar</a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
